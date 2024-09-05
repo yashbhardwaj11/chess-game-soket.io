@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title><%= title %></title>
+    <style>
+        .chessBoard {
+            display: grid;
+            grid-template-columns: repeat(8, minmax(0, 1fr));
+            grid-template-rows: repeat(8, minmax(0, 1fr));
+            width: 400px;
+            height: 400px;
+            transform: rotate(0deg);
+        }
+        .hidden {
+            display: none;
+        }
+        .peice.white {
+            color: white;
+            filter: drop-shadow(0 0 2px rgba(0, 0, 0, 1));
+        }
+        .peice.black {
+            color: black;
+        }
+        .flipped {
+            transform: rotate(180deg);
+        }
+        .square {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .square.light {
+            background-color: #f0d9b5;
+        }
+        .square.dark {
+            background-color: #b58863;
+        }
+        .peice {
+            font-size: 36px;
+            cursor: pointer;
+        }
+        .peice.draggable {
+            cursor: grab;
+        }
+        .dragging {
+            opacity: 0.5;
+        }
+        /* Rotate pieces for black player */
+        .flipped .peice {
+            transform: rotate(180deg);
+        }
+        #overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: black;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="overlay" class="w-full h-full bg-black flex items-center justify-center text-white">
+        Waiting for other player to join...
+    </div>
+
+    <div class="w-full h-screen bg-zinc-900 flex items-center justify-center hidden" id="gameBoard">
+        <div class="chessBoard w-96 h-96 bg-red-800"></div>
+    </div>
+
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="/js/chessgame.js"></script>
+</body>
+</html>
